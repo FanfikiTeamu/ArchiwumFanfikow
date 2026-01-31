@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Archiwum Fanfików</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0015;
+      --text: #e0e0ff;
+      --accent: #ff2e82;
+      --secondary: #a78bfa;
+      --card: rgba(18, 5, 35, 0.6);
+      --border: rgba(255,46,130,0.2);
+      --glow: 0 0 12px rgba(255,46,130,0.35);
+    }
+
+    body.neon {
+      --bg: #0a0015;
+      --text: #e0e0ff;
+      --card: rgba(18, 5, 35, 0.6);
+    }
+
+    body.dark {
+      --bg: #000000;
+      --text: #ffffff;
+      --card: #0a0a0a;
+      --border: #1a1a1a;
+      --accent: #ffffff;
+      --secondary: #dddddd;
+      --glow: none;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.8;
+      min-height: 100vh;
+      transition: all 0.6s ease;
+    }
+
+    a {
+      text-decoration: none !important; /* usuwa wszelkie podkreślenia linków */
+      color: inherit;
+    }
+
+    a:hover {
+      text-decoration: none !important; /* na hover też zero podkreślenia */
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px 140px;
+    }
+
+    header {
+      text-align: center;
+      padding-bottom: 40px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 5.2rem;
+      font-weight: 700;
+      letter-spacing: 8px; /* zwiększony odstęp – teraz 5px więcej niż wcześniej (było 3px) */
+      margin-bottom: 6px;
+      background: linear-gradient(90deg, #ffffff, var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: var(--glow);
+    }
+
+    .episodes-title {
+      font-size: 1.95rem;
+      font-weight: 500;
+      color: var(--secondary);
+      margin-bottom: 16px; /* jeszcze mniejsza przerwa – teraz bardzo zgrabna */
+      letter-spacing: 1.2px;
+      opacity: 0.92;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin: 30px 0 28px; /* mniejsza przerwa nad sekcją */
+      color: var(--text);
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--text), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: var(--glow);
+      text-align: center;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 24px; /* jeszcze mniejszy padding = jeszcze mniejszy przycisk */
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .item:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .item.neon-highlight {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .num {
+      font-size: 1.55rem; /* jeszcze mniejszy numer – zdecydowanie pomniejszony */
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: 12px;
+      display: inline-block;
+      min-width: 36px;
+      text-align: right;
+      opacity: 0.95;
+    }
+
+    .title {
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .desc {
+      color: #bbbbff;
+      font-size: 1.1rem;
+      opacity: 0.9;
+      line-height: 1.55;
+    }
+
+    .theme-switch {
+      position: fixed;
+      top: 28px;
+      right: 28px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      padding: 10px 22px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      transition: all 0.4s ease;
+    }
+
+    .theme-switch:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 100px;
+      padding: 50px 0 80px;
+      color: #777;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    body.dark footer {
+      border-top-color: #222;
+      color: #888;
+    }
+  </style>
+</head>
+<body class="neon">
+
+<div class="theme-switch" onclick="toggleTheme()">CZARNY TRYB</div>
+
+<div class="container">
+  <header>
+    <h1>Archiwum Fanfików</h1>
+    <p class="episodes-title">The New Episodes of the Fanfics</p>
+  </header>
+
+  <h2 class="section-title">NAJNOWSZE HISTORIE</h2>
+  <p style="text-align:center; color:#888; margin-bottom:40px; font-size:1.1rem;">TYLKO 18+</p>
+
+  <div class="list">
+
+    <!-- Najnowszy – numer 1, jeszcze mniejszy przycisk -->
+    <a href="https://fanfikiteamu.github.io/Fanfik1/" target="_blank" class="item neon-highlight">
+      <span class="num">1</span>
+      <div class="title">Lusia i Vipeerek – Najmocniejsza modka świata</div>
+      <p class="desc">Obsesyjna fanka w końcu dostaje to, o czym marzyła od lat. Mocny 18+, absurdalny humor, tatuaże, poduszki z twarzą i regulamin pisany spermą. Najdłuższy i najbardziej szalony odcinek serii.</p>
+    </a>
+
+    <!-- Miejsce na kolejne fanfiki – możesz dodać stare pozycje -->
+
+  </div>
+
+  <footer>
+    Wszystkie historie są fikcją • Żadna postać ani wydarzenie nie ma związku z rzeczywistością • Czytasz na własną odpowiedzialność
+  </footer>
+</div>
+
+<script>
+  function toggleTheme() {
+    const body = document.body;
+    const btn = document.querySelector('.theme-switch');
+
+    if (body.classList.contains('neon')) {
+      body.classList.remove('neon');
+      body.classList.add('dark');
+      btn.textContent = 'NEON TRYB';
+    } else {
+      body.classList.remove('dark');
+      body.classList.add('neon');
+      btn.textContent = 'CZARNY TRYB';
+    }
+  }
+</script>
+
+</body>
+</html>
