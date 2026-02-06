@@ -49,13 +49,11 @@
       transition: all 0.6s ease;
     }
 
-    a {
-      text-decoration: none !important; /* usuwa wszelkie podkreślenia linków */
-      color: inherit;
-    }
-
-    a:hover {
-      text-decoration: none !important; /* na hover też zero podkreślenia */
+    a, a:visited, a:hover, a:active, a:focus {
+      text-decoration: none !important;
+      color: inherit !important;
+      outline: none !important;
+      box-shadow: none !important;
     }
 
     .container {
@@ -73,7 +71,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 5.2rem;
       font-weight: 700;
-      letter-spacing: 8px; /* zwiększony odstęp – teraz 5px więcej niż wcześniej (było 3px) */
+      letter-spacing: 8px;
       margin-bottom: 6px;
       background: linear-gradient(90deg, #ffffff, var(--accent), var(--secondary));
       -webkit-background-clip: text;
@@ -86,7 +84,7 @@
       font-size: 1.95rem;
       font-weight: 500;
       color: var(--secondary);
-      margin-bottom: 16px; /* jeszcze mniejsza przerwa – teraz bardzo zgrabna */
+      margin-bottom: 12px;
       letter-spacing: 1.2px;
       opacity: 0.92;
     }
@@ -94,7 +92,7 @@
     .section-title {
       font-size: 2.4rem;
       font-weight: 700;
-      margin: 30px 0 28px; /* mniejsza przerwa nad sekcją */
+      margin: 20px 0 28px;
       color: var(--text);
       letter-spacing: 1px;
       background: linear-gradient(90deg, var(--text), var(--accent));
@@ -108,14 +106,14 @@
     .list {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
     }
 
     .item {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 18px 24px; /* jeszcze mniejszy padding = jeszcze mniejszy przycisk */
+      padding: 16px 22px;
       transition: all 0.4s ease;
       backdrop-filter: blur(10px);
     }
@@ -132,28 +130,28 @@
     }
 
     .num {
-      font-size: 1.55rem; /* jeszcze mniejszy numer – zdecydowanie pomniejszony */
+      font-size: 1.45rem;
       font-weight: 700;
       color: var(--accent);
-      margin-right: 12px;
+      margin-right: 10px;
       display: inline-block;
-      min-width: 36px;
+      min-width: 32px;
       text-align: right;
       opacity: 0.95;
     }
 
     .title {
-      font-size: 1.7rem;
+      font-size: 1.65rem;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: var(--text);
     }
 
     .desc {
       color: #bbbbff;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       opacity: 0.9;
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
     .theme-switch {
@@ -191,11 +189,75 @@
       border-top-color: #222;
       color: #888;
     }
+
+    #warning {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      color: #ff4444;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+      z-index: 9999;
+    }
+    #warning h1 {
+      font-size: 4rem;
+      margin-bottom: 30px;
+      color: #ff0000;
+      text-shadow: 0 0 20px #ff0000;
+    }
+    #warning p {
+      font-size: 1.6rem;
+      margin: 15px 0;
+      max-width: 800px;
+    }
+    .buttons {
+      margin-top: 60px;
+    }
+    .btn-warning {
+      background: #220000;
+      color: #ff9999;
+      border: 3px solid #ff4444;
+      padding: 20px 60px;
+      font-size: 1.8rem;
+      margin: 20px;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all 0.4s;
+    }
+    .btn-warning:hover {
+      background: #ff4444;
+      color: #000;
+      box-shadow: 0 0 40px #ff0000;
+    }
+    #main-content {
+      display: none;
+    }
   </style>
 </head>
 <body class="neon">
 
-<div class="theme-switch" onclick="toggleTheme()">CZARNY TRYB</div>
+<div id="warning">
+  <h1>UWAGA / WARNING / WARNUNG</h1>
+  <p>Ta strona zawiera treści wyłącznie dla osób pełnoletnich (18+).<br>
+  <strong>OSTRZEŻENIE: Bardzo mocne sceny 18+, seks, wulgaryzmy, elementy fantazji.</strong></p>
+  
+  <p style="margin: 40px 0 20px; font-size: 1.8rem;">This page contains adult content (18+ only).<br>
+  <strong>WARNING: Very explicit 18+ scenes, sex, vulgar language, fantasy elements.</strong></p>
+  
+  <p style="margin: 40px 0 60px; font-size: 1.8rem;">Diese Seite enthält ausschließlich Inhalte für Volljährige (18+).<br>
+  <strong>WARNUNG: Sehr explizite 18+ Szenen, Sex, vulgäre Sprache, Fantasie-Elemente.</strong></p>
+
+  <div class="buttons">
+    <button class="btn-warning" onclick="enterSite()">Mam 18+ lat – wchodzę / I'm 18+ – enter / Ich bin 18+ – eintreten</button>
+    <button class="btn-warning" onclick="leaveSite()">Nie mam 18 lat – wychodzę / I'm under 18 – leave / Ich bin unter 18 – verlassen</button>
+  </div>
+</div>
+
+<div id="main-content">
 
 <div class="container">
   <header>
@@ -208,14 +270,21 @@
 
   <div class="list">
 
-    <!-- Najnowszy – numer 1, jeszcze mniejszy przycisk -->
-    <a href="https://fanfikiteamu.github.io/Fanfik1/" target="_blank" class="item neon-highlight">
+    <!-- Numer 1 – stary fanfik -->
+    <a href="https://fanfikiteamu.github.io/Fanfik1/" target="_blank" class="item">
       <span class="num">1</span>
-      <div class="title">Lusia i Vipeerek – Najmocniejsza modka świata</div>
-      <p class="desc">Obsesyjna fanka w końcu dostaje to, o czym marzyła od lat. Mocny 18+, absurdalny humor, tatuaże, poduszki z twarzą i regulamin pisany spermą.</p>
+      <div class="title">Poród Vipeerka</div>
+      <p class="desc">Mocny trójkąt z Lusią i Izą kończy się ciążą. Potem Blameless dołącza, a w finale rodzi się mini jaszczurka. Wszyscy szczęśliwi.</p>
     </a>
 
-    
+    <!-- Numer 2 – nowy fanfik -->
+    <a href="https://fanfikiteamu.github.io/Fanfik2/" target="_blank" class="item neon-highlight">
+      <span class="num">2</span>
+      <div class="title">Ciąża Vipeerka</div>
+      <p class="desc">Mocny trójkąt z Lusią i Izą kończy się zapłodnieniem. Potem Blameless dołącza, a kilka miesięcy później rodzi się mała mini jaszczurka. Wszyscy szczęśliwi i razem.</p>
+    </a>
+
+    <!-- Miejsce na kolejne fanfiki – możesz dodać -->
 
   </div>
 
@@ -224,7 +293,18 @@
   </footer>
 </div>
 
+</div> <!-- koniec main-content -->
+
 <script>
+  function enterSite() {
+    document.getElementById('warning').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+  }
+
+  function leaveSite() {
+    window.location.href = 'https://www.google.pl';
+  }
+
   function toggleTheme() {
     const body = document.body;
     const btn = document.querySelector('.theme-switch');
