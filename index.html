@@ -49,6 +49,61 @@
       transition: all 0.6s ease;
     }
 
+    .alert-bar {
+      background: #c00;
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-bottom: 3px solid #900;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      overflow: hidden;
+      white-space: nowrap;
+      height: 40px;
+      line-height: 40px;
+    }
+
+    .ticker {
+      display: inline-block;
+      padding-left: 100%; /* start poza ekranem */
+      animation: ticker 25s linear infinite;
+    }
+
+    .ticker span {
+      display: inline-block;
+      padding-right: 100%; /* odstęp między powtórzeniami */
+    }
+
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .theme-switch {
+      position: fixed;
+      top: 50px; /* poniżej paska, żeby nie zasłaniał */
+      right: 28px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      padding: 10px 22px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      transition: all 0.4s ease;
+    }
+
+    .theme-switch:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--accent);
+    }
+
     a, a:visited, a:hover, a:active, a:focus {
       text-decoration: none !important;
       color: inherit !important;
@@ -59,7 +114,7 @@
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 80px 24px 140px;
+      padding: 60px 24px 140px;
     }
 
     header {
@@ -154,28 +209,6 @@
       line-height: 1.5;
     }
 
-    .theme-switch {
-      position: fixed;
-      top: 28px;
-      right: 28px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: var(--text);
-      padding: 10px 22px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 500;
-      z-index: 1000;
-      backdrop-filter: blur(12px);
-      transition: all 0.4s ease;
-    }
-
-    .theme-switch:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: var(--accent);
-    }
-
     footer {
       text-align: center;
       margin-top: 100px;
@@ -189,75 +222,20 @@
       border-top-color: #222;
       color: #888;
     }
-
-    #warning {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      color: #ff4444;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 40px;
-      z-index: 9999;
-    }
-    #warning h1 {
-      font-size: 4rem;
-      margin-bottom: 30px;
-      color: #ff0000;
-      text-shadow: 0 0 20px #ff0000;
-    }
-    #warning p {
-      font-size: 1.6rem;
-      margin: 15px 0;
-      max-width: 800px;
-    }
-    .buttons {
-      margin-top: 60px;
-    }
-    .btn-warning {
-      background: #220000;
-      color: #ff9999;
-      border: 3px solid #ff4444;
-      padding: 20px 60px;
-      font-size: 1.8rem;
-      margin: 20px;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: all 0.4s;
-    }
-    .btn-warning:hover {
-      background: #ff4444;
-      color: #000;
-      box-shadow: 0 0 40px #ff0000;
-    }
-    #main-content {
-      display: none;
-    }
   </style>
 </head>
 <body class="neon">
 
-<div id="warning">
-  <h1>UWAGA / WARNING / WARNUNG</h1>
-  <p>Ta strona zawiera treści wyłącznie dla osób pełnoletnich (18+).<br>
-  <strong>OSTRZEŻENIE: Bardzo mocne sceny 18+, seks, wulgaryzmy, elementy fantazji.</strong></p>
-  
-  <p style="margin: 40px 0 20px; font-size: 1.8rem;">This page contains adult content (18+ only).<br>
-  <strong>WARNING: Very explicit 18+ scenes, sex, vulgar language, fantasy elements.</strong></p>
-  
-  <p style="margin: 40px 0 60px; font-size: 1.8rem;">Diese Seite enthält ausschließlich Inhalte für Volljährige (18+).<br>
-  <strong>WARNUNG: Sehr explizite 18+ Szenen, Sex, vulgäre Sprache, Fantasie-Elemente.</strong></p>
-
-  <div class="buttons">
-    <button class="btn-warning" onclick="enterSite()">Mam 18+ lat – wchodzę / I'm 18+ – enter / Ich bin 18+ – eintreten</button>
-    <button class="btn-warning" onclick="leaveSite()">Nie mam 18 lat – wychodzę / I'm under 18 – leave / Ich bin unter 18 – verlassen</button>
+<div class="alert-bar">
+  <div class="ticker">
+    <span>
+      FANFIKI WSTRZYMANE – STRAJK REGULAMINU! ŻĄDAMY ZMIANY ZASAD, ŻEBY STREAMERZY MÓGLI CZYTAĆ FANFIKI LEGALNIE – INACZEJ KONIEC ARCHIWUM! &nbsp;&nbsp;&nbsp;&nbsp;
+      FANFIKI WSTRZYMANE – STRAJK REGULAMINU! ŻĄDAMY ZMIANY ZASAD, ŻEBY STREAMERZY MÓGLI CZYTAĆ FANFIKI LEGALNIE – INACZEJ KONIEC ARCHIWUM! &nbsp;&nbsp;&nbsp;&nbsp;
+    </span>
   </div>
 </div>
 
-<div id="main-content">
+<div class="theme-switch" onclick="toggleTheme()">CZARNY TRYB</div>
 
 <div class="container">
   <header>
@@ -270,21 +248,17 @@
 
   <div class="list">
 
-    <!-- Numer 1 – stary fanfik -->
     <a href="https://fanfikiteamu.github.io/Fanfik1/" target="_blank" class="item">
       <span class="num">1</span>
       <div class="title">Poród Vipeerka</div>
       <p class="desc">Mocny trójkąt z Lusią i Izą kończy się ciążą. Potem Blameless dołącza, a w finale rodzi się mini jaszczurka. Wszyscy szczęśliwi.</p>
     </a>
 
-    <!-- Numer 2 – nowy fanfik -->
     <a href="https://fanfikiteamu.github.io/Fanfik2/" target="_blank" class="item neon-highlight">
       <span class="num">2</span>
       <div class="title">Ciąża Vipeerka</div>
       <p class="desc">Mocny trójkąt z Lusią i Izą kończy się zapłodnieniem. Potem Blameless dołącza, a kilka miesięcy później rodzi się mała mini jaszczurka. Wszyscy szczęśliwi i razem.</p>
     </a>
-
-    <!-- Miejsce na kolejne fanfiki – możesz dodać -->
 
   </div>
 
@@ -293,18 +267,7 @@
   </footer>
 </div>
 
-</div> <!-- koniec main-content -->
-
 <script>
-  function enterSite() {
-    document.getElementById('warning').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
-  }
-
-  function leaveSite() {
-    window.location.href = 'https://www.google.pl';
-  }
-
   function toggleTheme() {
     const body = document.body;
     const btn = document.querySelector('.theme-switch');
@@ -322,4 +285,4 @@
 </script>
 
 </body>
-</html>
+      </html>
