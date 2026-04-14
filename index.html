@@ -84,17 +84,30 @@
       transition: border-color 0.3s;
     }
     .hamburger:hover { border-color: var(--accent); }
+
     .hamburger span {
       display: block;
       width: 22px;
       height: 2px;
       background: var(--text);
       border-radius: 2px;
-      transition: transform 0.35s ease, opacity 0.3s ease;
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity   0.28s ease,
+                  width     0.3s  ease;
+      transform-origin: center;
     }
-    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Hamburger → X morph */
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
     /* SIDEBAR */
     .sidebar {
@@ -115,10 +128,32 @@
     .sidebar.open { transform: translateX(0); }
 
     .sidebar-header {
-      padding: 26px 22px 16px;
+      padding: 16px 22px 16px 22px;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
     }
+
+    .sidebar-close {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: border-color 0.25s, background 0.25s;
+      flex-shrink: 0;
+    }
+    .sidebar-close:hover { border-color: var(--accent); background: rgba(255,46,130,0.1); }
+
     .sidebar-header h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
@@ -127,25 +162,32 @@
       background-clip: text;
       color: transparent;
       letter-spacing: 1px;
+      line-height: 1.3;
     }
     .sidebar-header p {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--secondary);
       opacity: 0.6;
-      margin-top: 3px;
+      margin-top: -6px;
       letter-spacing: 0.5px;
     }
 
-    .sidebar-list {
+    .sidebar-scroll {
       flex: 1;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .sidebar-scroll::-webkit-scrollbar { width: 3px; }
+    .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .sidebar-list {
       padding: 12px 12px 8px;
       display: flex;
       flex-direction: column;
       gap: 9px;
     }
-    .sidebar-list::-webkit-scrollbar { width: 3px; }
-    .sidebar-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
     .sidebar-item {
       display: block;
@@ -187,14 +229,13 @@
     }
     body.contrast .sidebar-item-desc { color: var(--secondary); opacity: 0.8; }
 
-    /* SIDEBAR FOOTER — TRYBY */
     .sidebar-footer {
       padding: 12px 12px 22px;
       border-top: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       gap: 7px;
-      flex-shrink: 0;
+      margin-top: auto;
     }
     .sidebar-footer-label {
       font-size: 0.68rem;
@@ -349,7 +390,6 @@
     body.dark footer { border-top-color: #222; color: #888; }
     body.contrast footer { border-top-color: #444400; color: #aaaa00; }
 
-    /* TABLET */
     @media (max-width: 768px) {
       h1 { font-size: 3.4rem; letter-spacing: 4px; }
       .episodes-title { font-size: 1.4rem; }
@@ -358,7 +398,6 @@
       .theme-switch { top: 14px; right: 14px; padding: 8px 14px; font-size: 0.8rem; }
     }
 
-    /* MOBILE */
     @media (max-width: 480px) {
       h1 { font-size: 2.4rem; letter-spacing: 2px; }
       .episodes-title { font-size: 1.1rem; letter-spacing: 0.5px; }
@@ -392,34 +431,39 @@
 <nav class="sidebar" id="sidebar">
 
   <div class="sidebar-header">
+    <button class="sidebar-close" onclick="closeMenu()" aria-label="Zamknij menu">✕</button>
     <h2>Archiwum Fanfików</h2>
     <p>WSZYSTKIE HISTORIE • 18+</p>
   </div>
 
-  <div class="sidebar-list">
-    <a href="https://fanfikiteamu.github.io/Fanfik1/" target="_blank" class="sidebar-item" onclick="closeMenu()">
-      <div class="sidebar-item-num">FANFIK 01</div>
-      <div class="sidebar-item-title">Poród Vipeerka</div>
-      <div class="sidebar-item-desc">Mocny trójkąt z Lusią i Izą kończy się ciążą. Blameless dołącza, rodzi się mini jaszczurka.</div>
-    </a>
-    <a href="https://fanfikiteamu.github.io/Fanfik2/" target="_blank" class="sidebar-item active" onclick="closeMenu()">
-      <div class="sidebar-item-num">FANFIK 02</div>
-      <div class="sidebar-item-title">Ciąża Vipeerka</div>
-      <div class="sidebar-item-desc">Trójkąt kończy się zapłodnieniem. Kilka miesięcy później wszyscy razem witają nowe życie.</div>
-    </a>
-  </div>
+  <div class="sidebar-scroll">
 
-  <div class="sidebar-footer">
-    <div class="sidebar-footer-label">Tryb wyświetlania</div>
-    <button class="mode-btn active-mode" id="btn-neon" onclick="setTheme('neon')">
-      <span class="dot"></span> Neon (domyślny)
-    </button>
-    <button class="mode-btn" id="btn-dark" onclick="setTheme('dark')">
-      <span class="dot"></span> Czarny tryb
-    </button>
-    <button class="mode-btn" id="btn-contrast" onclick="setTheme('contrast')">
-      <span class="dot"></span> Wysoki kontrast
-    </button>
+    <div class="sidebar-list">
+      <a href="https://fanfikiteamu.github.io/Fanfik1/" target="_blank" class="sidebar-item" onclick="closeMenu()">
+        <div class="sidebar-item-num">FANFIK 01</div>
+        <div class="sidebar-item-title">Poród Vipeerka</div>
+        <div class="sidebar-item-desc">Mocny trójkąt z Lusią i Izą kończy się ciążą. Blameless dołącza, rodzi się mini jaszczurka.</div>
+      </a>
+      <a href="https://fanfikiteamu.github.io/Fanfik2/" target="_blank" class="sidebar-item active" onclick="closeMenu()">
+        <div class="sidebar-item-num">FANFIK 02</div>
+        <div class="sidebar-item-title">Ciąża Vipeerka</div>
+        <div class="sidebar-item-desc">Trójkąt kończy się zapłodnieniem. Kilka miesięcy później wszyscy razem witają nowe życie.</div>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-label">Tryb wyświetlania</div>
+      <button class="mode-btn active-mode" id="btn-neon" onclick="setTheme('neon')">
+        <span class="dot"></span> Neon (domyślny)
+      </button>
+      <button class="mode-btn" id="btn-dark" onclick="setTheme('dark')">
+        <span class="dot"></span> Czarny tryb
+      </button>
+      <button class="mode-btn" id="btn-contrast" onclick="setTheme('contrast')">
+        <span class="dot"></span> Wysoki kontrast
+      </button>
+    </div>
+
   </div>
 
 </nav>
@@ -490,10 +534,28 @@
     document.body.style.overflow = '';
   }
 
-  // swipe left to close on mobile
-  let tx = 0;
-  document.getElementById('sidebar').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-  document.getElementById('sidebar').addEventListener('touchend', e => { if (tx - e.changedTouches[0].clientX > 55) closeMenu(); }, { passive: true });
+  let touchStartX = 0, touchStartY = 0;
+
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    const isHorizontal = dy < 80;
+
+    if (touchStartX <= window.innerWidth / 2 && dx > 30 && isHorizontal) {
+      openMenu();
+      return;
+    }
+
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar.classList.contains('open') && dx < -30 && isHorizontal) {
+      closeMenu();
+    }
+  }, { passive: true });
 </script>
 </body>
 </html>
