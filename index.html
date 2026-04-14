@@ -64,6 +64,7 @@
       z-index: 1000;
       backdrop-filter: blur(12px);
       transition: all 0.4s ease;
+      white-space: nowrap;
     }
 
     .theme-switch:hover {
@@ -188,6 +189,114 @@
     body.dark footer {
       border-top-color: #222;
       color: #888;
+    }
+
+    /* ─── TABLET ─── */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 3.4rem;
+        letter-spacing: 4px;
+      }
+
+      .episodes-title {
+        font-size: 1.4rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .container {
+        padding: 80px 18px 100px;
+      }
+
+      .theme-switch {
+        top: 14px;
+        right: 16px;
+        padding: 8px 16px;
+        font-size: 0.82rem;
+      }
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.4rem;
+        letter-spacing: 2px;
+      }
+
+      .episodes-title {
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+      }
+
+      .section-title {
+        font-size: 1.45rem;
+        letter-spacing: 0.5px;
+        margin: 14px 0 20px;
+      }
+
+      .container {
+        padding: 72px 14px 80px;
+      }
+
+      header {
+        padding-bottom: 24px;
+      }
+
+      .theme-switch {
+        top: 12px;
+        right: 12px;
+        padding: 7px 13px;
+        font-size: 0.75rem;
+      }
+
+      .item {
+        padding: 14px 16px;
+        border-radius: 12px;
+      }
+
+      .num {
+        font-size: 1.1rem;
+        min-width: 24px;
+        margin-right: 6px;
+      }
+
+      .title {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+      }
+
+      .desc {
+        font-size: 0.92rem;
+      }
+
+      footer {
+        margin-top: 60px;
+        padding: 30px 0 50px;
+        font-size: 0.82rem;
+        line-height: 1.7;
+      }
+
+      .list {
+        gap: 14px;
+      }
+    }
+
+    /* ─── VERY SMALL (≤360px) ─── */
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.9rem;
+        letter-spacing: 1px;
+      }
+
+      .episodes-title {
+        font-size: 0.95rem;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+      }
     }
   </style>
 </head>
